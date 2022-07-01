@@ -19,7 +19,6 @@ const main = async () => {
         "Contract Balance",
         hre.ethers.utils.formatEther(contractBalance)
     )
-    let waveCount;
 
     /*
     * Send Wave
@@ -28,16 +27,8 @@ const main = async () => {
     let waveTxn = await waveContract.wave("First wave!");
     await waveTxn.wait();
 
-    waveCount = await waveContract.getTotalWaves();
-
-    console.log(`You received ${waveCount} wave(s)!`)
-
     waveTxn = await waveContract.connect(randomPerson).wave("Second wave!");
     await waveTxn.wait();
-
-    waveCount = await waveContract.getTotalWaves();
-
-    console.log(`You received ${waveCount} wave(s)!`)
 
     /*
      * Get Contract Balance again
