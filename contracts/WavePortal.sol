@@ -26,7 +26,7 @@ contract WavePortal {
     }
 
     modifier hasCooldown () {
-        require(lastWavedAt[msg.sender] + 15 minutes < block.timestamp, "Wait 15m");
+        require(lastWavedAt[msg.sender] + 15 seconds < block.timestamp, "Wait 15 seconds");
         _;
     }
 
