@@ -16,6 +16,8 @@ contract WavePortal {
         uint256 timestamp;
     }
 
+    mapping(address => uint256) public lastWavedAt;
+
     Wave[] waves;
 
     constructor () payable {
@@ -23,9 +25,15 @@ contract WavePortal {
         seed = (block.timestamp + block.difficulty) % 100;
     }
 
-    function wave(string memory _message) public {
-        totalWaves += 1;
+    modifier hasCooldown () {
+        require(lastWavedAt[msg.sender] + 15 minutes < block.timestamp, "Wait 15m");
+        _;
+    }
 
+    function wave(string memory _message) public hasCooldown {
+        lastWavedAt[msg.sender] = block.timestamp;
+
+        totalWaves += 1;
         Wave memory _wave = Wave({waver: msg.sender, message: _message, timestamp: block.timestamp});
         waves.push(_wave);
 

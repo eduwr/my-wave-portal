@@ -30,6 +30,9 @@ const main = async () => {
     waveTxn = await waveContract.connect(randomPerson).wave("Second wave!");
     await waveTxn.wait();
 
+    waveTxn = await waveContract.connect(randomPerson).wave("Third wave!");
+    await waveTxn.wait();
+
     /*
      * Get Contract Balance again
     */
